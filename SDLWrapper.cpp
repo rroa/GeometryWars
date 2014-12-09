@@ -262,6 +262,8 @@ namespace Geometry
     void SDLWrapper::OnLButtonDown( int x, int y)
     {
         std::cout << "Left button down: " << x << ", " << y << "\n";
+        Input::getInstance()->onTouch(tTouchEvent(tTouchEvent::kTouchBegin,
+                tPoint2f(x, y), 0));
     }
 
     void SDLWrapper::OnRButtonDown( int x, int y )
@@ -277,6 +279,8 @@ namespace Geometry
     void SDLWrapper::OnLButtonUp( int x, int y )
     {
         std::cout << "Left button Up: " << x << ", " << y << "\n";
+        Input::getInstance()->onTouch(tTouchEvent(tTouchEvent::kTouchEnd,
+                tPoint2f(x, y), 0));
     }
 
     void SDLWrapper::OnRButtonUp( int x, int y )
@@ -291,17 +295,26 @@ namespace Geometry
 
     void SDLWrapper::OnFingerDown( SDL_Event* touchFingerEvent )
     {
-        std::cout << "Finger Down!\n";
+        #if EMSCRIPTEN
+        SDL_TouchFingerEvent *t = (SDL_TouchFingerEvent*)touchFingerEvent;
+        std::cout << "Finger Down! " << t->touchId << "\n";
+        #endif
     }
 
     void SDLWrapper::OnFingerUp( SDL_Event* touchFingerEvent )
     {
-        std::cout << "Finger Up!\n";
+        #if EMSCRIPTEN
+        SDL_TouchFingerEvent *t = (SDL_TouchFingerEvent*)touchFingerEvent;
+        std::cout << "Finger Up! " << t->touchId << "\n";
+        #endif
     }
 
     void SDLWrapper::OnFingerMotion( SDL_Event* touchFingerEvent )
     {
-        std::cout << "Finger Motion!\n";
+        #if EMSCRIPTEN
+        SDL_TouchFingerEvent *t = (SDL_TouchFingerEvent*)touchFingerEvent;
+        std::cout << "Finger Motion! " << t->touchId << "\n";
+        #endif
     }
 
 
@@ -317,10 +330,7 @@ namespace Geometry
 
     void SDLWrapper::OnKeyDown( SDL_KeyboardEvent keyBoardEvent )
     {
-        std::cout << "Key down!\n";
-        std::cout << "key: sym " << keyBoardEvent.keysym.sym 
-                  << " scancode " << keyBoardEvent.keysym.scancode 
-                  << " unicode " << ( static_cast<char>( keyBoardEvent.keysym.unicode )) << "\n";
+        Input::getInstance()->onKeyboard(tKeyboardEvent(tKeyboardEvent::kKeyDown, keyBoardEvent.keysym.sym ));
     }
 
     void SDLWrapper::OnKeyUp( SDL_KeyboardEvent keyBoardEvent )
@@ -330,10 +340,7 @@ namespace Geometry
             OnExit( );
         }
 
-        std::cout << "Key Up!\n";
-        std::cout << "key: sym " << keyBoardEvent.keysym.sym 
-                  << " scancode " << keyBoardEvent.keysym.scancode 
-                  << " unicode " << ( static_cast<char>( keyBoardEvent.keysym.unicode )) << "\n";
+        Input::getInstance()->onKeyboard(tKeyboardEvent(tKeyboardEvent::kKeyUp, keyBoardEvent.keysym.sym ));
     }
 
     void SDLWrapper::OnRender( )

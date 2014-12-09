@@ -10,7 +10,7 @@
 GameRoot* gApp = GameRoot::getInstance();
 
 GameRoot::GameRoot()
-:   mViewportSize(800, 600),
+:   mViewportSize(1136, 640),
     mSpriteBatch(NULL)
 {
 }

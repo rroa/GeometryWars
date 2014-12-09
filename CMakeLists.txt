@@ -8,6 +8,7 @@ set(SOURCE_FILES
     Utility/stb_image.h
     Utility/tAutosizeViewport.cpp
     Utility/tAutosizeViewport.hpp
+    Utility/tInputEvent.hpp
     Utility/tMath.cpp
     Utility/tMath.hpp
     Utility/tMatrix.cpp

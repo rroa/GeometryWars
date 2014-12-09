@@ -135,7 +135,7 @@ tVector2f Input::getAimDirection() const
 
 void Input::onKeyboard(const tKeyboardEvent& msg)
 {
-    /*switch (msg.mCharCode)
+    switch (msg.mCharCode)
     {
         case 'w': mFreshKeyboardState[kW] = (msg.mEvent == tKeyboardEvent::kKeyDown); break;
         case 'a': mFreshKeyboardState[kA] = (msg.mEvent == tKeyboardEvent::kKeyDown); break;
@@ -148,10 +148,10 @@ void Input::onKeyboard(const tKeyboardEvent& msg)
         case 0x03: mFreshKeyboardState[kRight]  = (msg.mEvent == tKeyboardEvent::kKeyDown); break;
 
         default: break;
-    }*/
+    }
 }
 
 void Input::onTouch(const tTouchEvent& msg)
 {
-    //mFreshMouseState = tPoint2f((int32_t)msg.mLocation.x, (int32_t)msg.mLocation.y);
+    mFreshMouseState = tPoint2f((int32_t)msg.mLocation.x, (int32_t)msg.mLocation.y);
 }

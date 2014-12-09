@@ -38,6 +38,11 @@
 #include "tMatrix.hpp"
 #include "tRect.hpp"
 
+//System Time, Input, and Audio
+//#include "tTimer.h"
+#include "tInputEvent.hpp"
+//#include "tSound.h"
+
 //OpenGL helper classes
 #include "tSurface.hpp"
 #include "tTexture.hpp"
