@@ -41,8 +41,8 @@ void Enemy::ApplyBehaviours()
 }
 
 Enemy::Enemy(tTexture* image, const tVector2f& position)
-        :   mPointValue(1),
-            mTimeUntilStart(60)
+:   mPointValue(1),
+mTimeUntilStart(60)
 {
     mImage = image;
     mPosition = position;
@@ -65,7 +65,7 @@ void Enemy::update()
 
     mPosition += mVelocity;
     mPosition = tVector2f(tMath::clamp(mPosition.x, getSize().width / 2.0f, GameRoot::getInstance()->getViewportSize().width - getSize().width / 2.0f),
-            tMath::clamp(mPosition.y, getSize().height / 2.0f, GameRoot::getInstance()->getViewportSize().height - getSize().height / 2.0f));
+                          tMath::clamp(mPosition.y, getSize().height / 2.0f, GameRoot::getInstance()->getViewportSize().height - getSize().height / 2.0f));
 
     mVelocity *= 0.8f;
 }
@@ -116,7 +116,7 @@ Enemy* Enemy::createWanderer(const tVector2f& position)
 void Enemy::handleCollision(Enemy* other)
 {
     tVector2f d = mPosition - other->mPosition;
-
+    
     mVelocity += 10.0f * d / (d.lengthSquared() + 1.0f);
 }
 
@@ -127,7 +127,23 @@ void Enemy::wasShot()
     PlayerStatus::getInstance()->addPoints(mPointValue);
     PlayerStatus::getInstance()->increaseMultiplier();
 
-    // TODO: RR: Implement this
+
+//TODO: ShapeBlaster fmod
+    float hue1 = Extensions::nextFloat(0, 6);
+    float hue2 = fmodf(hue1 + Extensions::nextFloat(0, 2), 6.0f);
+    tColor4f color1 = ColorUtil::HSVToColor(hue1, 0.5f, 1);
+    tColor4f color2 = ColorUtil::HSVToColor(hue2, 0.5f, 1);
+
+    for (int i = 0; i < 120; i++)
+    {
+        float speed = 18.0f * (1.0f - 1 / Extensions::nextFloat(1, 10));
+        ParticleState state(Extensions::nextVector2(speed, speed), ParticleState::kEnemy, 1);
+
+        tColor4f color = Extensions::colorLerp(color1, color2, Extensions::nextFloat(0, 1));
+        GameRoot::getInstance()->getParticleManager()->createParticle(Art::getInstance()->getLineParticle(), mPosition, color, 190, 1.5f, state);
+    }
+    
+	// TODO: RR: Implement this
     /*tSound* temp = Sound::getInstance()->getExplosion();
 
     if (!temp->isPlaying())

@@ -27,8 +27,9 @@
 12:15AM
 ---
 
-* I don't know why I started this late, I had the whole day to advance on this but procrastination seemed more appropiate.
+* I don't know why I started this late, I had the whole day to advance on this but procrastination seemed more appropriate.
 * I found a tutorial about how to implement a Geometry Wars called Neon Vector Shooter in iOS, this looks and interesting and might demonstrate further the value of my code analysis tool.
+  http://gamedevelopment.tutsplus.com/tutorials/make-a-neon-vector-shooter-for-ios-first-steps--gamedev-14316
 * Most of the utility classes are in C++ with some platform specific implementations for file handling. It literally took me 2 minutes to change this.
 * OpenGL context creation is almost free in iOS, not a problem for me either, I've already created my skeleton.
 * Many of my paths are hard coded, this might confuse ConConJS later down the road since the directory containing the resources is a constant and not part of the file path.
@@ -111,10 +112,18 @@
 ---
 
 * Started working again, now black holes and virtual joysticks will be implemented.
-* The diff showed 17 files to be updated. This is the third part of the neon vector shooter tutorial at game development tuts.
+* The diff showed 17 files to be updated. This is the third part of the neon vector shooter tutorial at game development tuts
+  http://gamedevelopment.tutsplus.com/tutorials/make-a-neon-vector-shooter-for-ios-virtual-gamepads-and-black-holes--gamedev-14633
 * This migration should be smooth since there are no platform specific code files.
 
 11:20PM
 ---
 
 * Black holes and virtual joysticks have been implemented successfully. Water break!
+
+11:31PM
+---
+
+* It is time to implement the particle effects. This is the fourth part of the tutorial found in game development tuts for the Neon Vector Shooter for iOS
+  http://gamedevelopment.tutsplus.com/tutorials/make-a-neon-vector-shooter-for-ios-particle-effects--gamedev-14635
+* The diff tool identified 19 modifications. Again none seem to have iOS specific code, which will make this migration a breeze.

@@ -9,6 +9,7 @@ class GameRoot
 :   public tSingleton<GameRoot>
 {
 protected:
+    ParticleManager     mParticleManager;
     tDimension2f        mViewportSize;
     tSpriteBatch*       mSpriteBatch;
 
@@ -22,6 +23,7 @@ protected:
 
 public:
     tDimension2f        getViewportSize();
+    ParticleManager*    getParticleManager();
 
     void onInitView();
     void onRedrawView(float time);

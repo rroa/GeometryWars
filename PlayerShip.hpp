@@ -16,6 +16,9 @@ protected:
     int mFramesUntilRespawn;
 
 protected:
+    void MakeExhaustFire();
+
+protected:
     PlayerShip();
 
 public:

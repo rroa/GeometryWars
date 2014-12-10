@@ -18,7 +18,8 @@ void GameRoot::DrawRightAlignedString(const std::string& str, int32_t y)
 }
 
 GameRoot::GameRoot()
-:   mViewportSize(1136, 640),
+:   mParticleManager(1024 * 20),
+    mViewportSize(1136, 640),
     mSpriteBatch(NULL)
 {
 }
@@ -26,6 +27,11 @@ GameRoot::GameRoot()
 tDimension2f GameRoot::getViewportSize()
 {
     return mViewportSize;
+}
+
+ParticleManager* GameRoot::getParticleManager()
+{
+    return &mParticleManager;
 }
 
 void GameRoot::onInitView()
@@ -66,8 +72,10 @@ void GameRoot::onRedrawView(float time)
     PlayerStatus::getInstance()->update();
     EntityManager::getInstance()->update();
     EnemySpawner::getInstance()->update();
+    mParticleManager.update();
 
     EntityManager::getInstance()->draw(mSpriteBatch);
+    mParticleManager.draw(mSpriteBatch);
 
     // Draw user interface
     sprintf(buf, "Lives: %d", PlayerStatus::getInstance()->getLives());

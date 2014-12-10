@@ -7,7 +7,8 @@
 //----------------------------------------------------------------------------------
 
 BlackHole::BlackHole(const tVector2f& position)
-        :   mHitPoints(10)
+:   mHitPoints(10),
+    mSprayAngle(0)
 {
     mImage = Art::getInstance()->getBlackHole();
     mPosition = position;
@@ -38,6 +39,21 @@ void BlackHole::update()
             (*iter)->setVelocity((*iter)->getVelocity() + dPos.normalize() * tMath::mix(2.0f, 0.0f, length / 250.0f));
         }
     }
+
+
+    // The black holes spray some orbiting particles. The spray toggles on and off every quarter second.
+    /*if ((tTimer::getTimeMS() / 250) % 2 == 0)
+    {
+        tVector2f sprayVel = MathUtil::fromPolar(mSprayAngle, Extensions::nextFloat(12, 15));
+        tColor4f color = ColorUtil::HSVToColor(5, 0.5f, 0.8f);
+        tVector2f pos = mPosition + 2.0f * tVector2f(sprayVel.y, -sprayVel.x) + Extensions::nextVector2(4, 8);
+        ParticleState state(sprayVel, ParticleState::kEnemy, 1.0f);
+
+        GameRoot::getInstance()->getParticleManager()->createParticle(Art::getInstance()->getLineParticle(), pos, color, 190, 1.5f, state);
+    }*/
+
+    // rotate the spray direction
+    mSprayAngle -= tMath::PI * 2.0f / 50.0f;
 }
 
 void BlackHole::draw(tSpriteBatch* spriteBatch)
@@ -58,7 +74,21 @@ void BlackHole::wasShot()
         mIsExpired = true;
     }
 
-    // TODO: RR: Implement this
+    float hue = fmodf(3.0f / 1000.0f * 10.0f /*tTimer::getTimeMS()*/, 6);
+    tColor4f color = ColorUtil::HSVToColor(hue, 0.25f, 1);
+    const int numParticles = 150;
+    float startOffset = Extensions::nextFloat(0, tMath::PI * 2.0f / numParticles);
+
+    for (int i = 0; i < numParticles; i++)
+    {
+        tVector2f sprayVel = MathUtil::fromPolar(tMath::PI * 2.0f * i / numParticles + startOffset, Extensions::nextFloat(8, 16));
+        tVector2f pos = mPosition + 2.0f * sprayVel;
+        ParticleState state(sprayVel, ParticleState::kIgnoreGravity, 1.0f);
+
+        GameRoot::getInstance()->getParticleManager()->createParticle(Art::getInstance()->getLineParticle(), pos, color, 90, 1.5f, state);
+    }
+    
+
     /*tSound* temp = Sound::getInstance()->getExplosion();
 
     if (!temp->isPlaying())

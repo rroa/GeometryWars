@@ -17,6 +17,8 @@ protected:
     tTexture* mPointer;
     tTexture* mBlackHole;
     tTexture* mFontTexture;
+    tTexture* mLineParticle;
+    tTexture* mGlow;
 
     tTexture* mVPadBottom;
     tTexture* mVPadTop;
@@ -31,6 +33,8 @@ public:
     tTexture* getBullet() const;
     tTexture* getPointer() const;
     tTexture* getBlackHole() const;
+    tTexture* getLineParticle() const;
+    tTexture* getGlow() const;
 
     tTexture* getVPadBottom() const;
     tTexture* getVPadTop() const;

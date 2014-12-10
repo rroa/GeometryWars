@@ -24,6 +24,9 @@ Art::Art()
 
     mVPadTop        = new tTexture(tSurface(std::string(resourcesPath + "vpad_top.png")));
     mVPadBottom     = new tTexture(tSurface(std::string(resourcesPath + "vpad_bot.png")));
+
+    mLineParticle   = new tTexture(tSurface(std::string(resourcesPath + "laser.png")));
+    mGlow           = new tTexture(tSurface(std::string(resourcesPath + "glow.png")));
 }
 
 tTexture* Art::getPlayer() const
@@ -54,6 +57,16 @@ tTexture* Art::getPointer() const
 tTexture* Art::getBlackHole() const
 {
     return mBlackHole;
+}
+
+tTexture* Art::getLineParticle() const
+{
+    return mLineParticle;
+}
+
+tTexture* Art::getGlow() const
+{
+    return mGlow;
 }
 
 tTexture* Art::getVPadBottom() const

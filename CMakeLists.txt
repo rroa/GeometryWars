@@ -38,6 +38,8 @@ set(SOURCE_FILES
     BlackHole.hpp
     Bullet.cpp
     Bullet.hpp
+    ColorUtil.cpp
+    ColorUtil.hpp
     Enemy.cpp
     Enemy.hpp
     EnemySpawner.cpp
@@ -57,6 +59,11 @@ set(SOURCE_FILES
     MathUtil.cpp
     MathUtil.hpp
     package.h
+    Particle.hpp
+    ParticleManager.cpp
+    ParticleManager.hpp
+    ParticleState.cpp
+    ParticleState.hpp
     PlayerShip.cpp
     PlayerShip.hpp
     PlayerStatus.cpp

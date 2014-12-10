@@ -45,4 +45,5 @@ public:
     std::list<Entity*> getNearbyEntities(const tPoint2f& pos, float radius);
 
     friend class tSingleton<EntityManager>;
+    friend class ParticleState;
 };

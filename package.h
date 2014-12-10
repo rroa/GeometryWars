@@ -7,6 +7,7 @@
 
 #include "Extensions.hpp"
 #include "MathUtil.hpp"
+#include "ColorUtil.hpp"
 
 #include "Art.hpp"
 #include "Sound.hpp"
@@ -20,6 +21,11 @@
 #include "BlackHole.hpp"
 
 #include "EntityManager.hpp"
+
+#include "ParticleState.hpp"
+#include "Particle.hpp"
+
+#include "ParticleManager.hpp"
 
 #include "GameRoot.hpp"
 

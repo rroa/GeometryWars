@@ -29,5 +29,15 @@ void Bullet::update()
     if (!tRectf(0, 0, GameRoot::getInstance()->getViewportSize()).contains(tPoint2f((int32_t)mPosition.x, (int32_t)mPosition.y)))
     {
         mIsExpired = true;
+
+
+        for (int i = 0; i < 30; i++)
+        {
+            GameRoot::getInstance()->getParticleManager()->createParticle(
+                                                                         Art::getInstance()->getLineParticle(),
+                                                                         mPosition,
+                                                                         tColor4f(0.67f, 0.85f, 0.90f, 1), 50, 1,
+                                                                         ParticleState(Extensions::nextVector2(0, 9), ParticleState::kBullet, 1));
+        }
     }
 }

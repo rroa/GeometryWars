@@ -5,19 +5,11 @@
 // Find the full tutorial at: http://gamedev.tutsplus.com/series/
 //----------------------------------------------------------------------------------
 
-class BlackHole
-        : public Entity
+class ColorUtil
 {
-protected:
-    int mHitPoints;
-    float mSprayAngle;
-
 public:
-    BlackHole(const tVector2f& position);
 
-    void update();
-    void draw(tSpriteBatch* spriteBatch);
-
-    void wasShot();
-    void kill();
+    static tVector3f ColorToHSV(const tColor4f& color);
+    static tColor4f HSVToColor(const tVector3f& hsv);
+    static tColor4f HSVToColor(float h, float s, float v);
 };
