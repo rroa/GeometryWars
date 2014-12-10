@@ -5,22 +5,18 @@
 // Find the full tutorial at: http://gamedev.tutsplus.com/series/
 //----------------------------------------------------------------------------------
 
-class EnemySpawner
-        : public tSingleton<EnemySpawner>
+class BlackHole
+        : public Entity
 {
 protected:
-    float mInverseSpawnChance;
-    float mInverseBlackHoleChance;
-
-protected:
-    tVector2f GetSpawnPosition();
-
-protected:
-    EnemySpawner();
+    int mHitPoints;
 
 public:
-    void update();
-    void reset();
+    BlackHole(const tVector2f& position);
 
-    friend class tSingleton<EnemySpawner>;
+    void update();
+    void draw(tSpriteBatch* spriteBatch);
+
+    void wasShot();
+    void kill();
 };

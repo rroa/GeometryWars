@@ -15,7 +15,11 @@ protected:
     tTexture* mWanderer;
     tTexture* mBullet;
     tTexture* mPointer;
+    tTexture* mBlackHole;
     tTexture* mFontTexture;
+
+    tTexture* mVPadBottom;
+    tTexture* mVPadTop;
 
 protected:
     Art();
@@ -26,6 +30,11 @@ public:
     tTexture* getWanderer() const;
     tTexture* getBullet() const;
     tTexture* getPointer() const;
+    tTexture* getBlackHole() const;
+
+    tTexture* getVPadBottom() const;
+    tTexture* getVPadTop() const;
+
     tSpriteFont getFont() const;
 
     friend class tSingleton<Art>;

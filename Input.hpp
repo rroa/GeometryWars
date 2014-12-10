@@ -55,4 +55,5 @@ public:
     void onTouch(const tTouchEvent& msg);
 
     friend class tSingleton<Input>;
+    friend class VirtualGamepad;
 };

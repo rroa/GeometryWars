@@ -257,8 +257,8 @@ namespace Geometry
     {
         //std::cout << "motion: " << x << ", " << y << " " << relx << ", " << rely << "\n";
         //std::cout << "buttons: left: " << left << ", right: " << right << " middle: " << middle << "\n";
-        /*Input::getInstance()->onTouch(tTouchEvent(tTouchEvent::kTouchMove,
-                tPoint2f(x, y), 0));*/
+        Input::getInstance()->onTouch(tTouchEvent(tTouchEvent::kTouchMove,
+                tPoint2f(x, y), 0));
     }
 
     void SDLWrapper::OnLButtonDown( int x, int y)

@@ -8,6 +8,7 @@
 
 class Bullet;
 class Enemy;
+class BlackHole;
 
 class EntityManager
 : public tSingleton<EntityManager>
@@ -17,13 +18,20 @@ protected:
     std::list<Enemy*>       mEnemies;
     std::list<Entity*>      mAddedEntities;
     std::list<Bullet*>      mBullets;
+    std::list<BlackHole*>   mBlackHoles;
     bool mIsUpdating;
+
+protected:
+    void KillPlayer();
 
 protected:
     EntityManager();
 
 public:
     int getCount() const;
+    int getBlackHoleCount() const;
+
+    std::list<BlackHole*>   getBlackHoles() const;
 
     void add(Entity* entity);
     void addEntity(Entity* entity);
@@ -33,6 +41,8 @@ public:
 
     void handleCollisions();
     bool isColliding(Entity* a, Entity* b);
+
+    std::list<Entity*> getNearbyEntities(const tPoint2f& pos, float radius);
 
     friend class tSingleton<EntityManager>;
 };

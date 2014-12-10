@@ -77,6 +77,8 @@ void PlayerShip::update()
         {
             mOrientation = atan2f(mVelocity.y, mVelocity.x);
         }
+
+        mVelocity = tVector2f(0);
     }
 }
 

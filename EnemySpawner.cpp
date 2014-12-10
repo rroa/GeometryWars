@@ -39,6 +39,11 @@ void EnemySpawner::update()
         {
             EntityManager::getInstance()->add(Enemy::createWanderer(GetSpawnPosition()));
         }
+
+        if (EntityManager::getInstance()->getBlackHoleCount() < 2 && int32_t(tMath::random() * mInverseBlackHoleChance) == 0)
+        {
+            EntityManager::getInstance()->add(new BlackHole(GetSpawnPosition()));
+        }
     }
 
     if (mInverseSpawnChance > 30)

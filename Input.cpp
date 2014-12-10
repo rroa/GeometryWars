@@ -153,5 +153,97 @@ void Input::onKeyboard(const tKeyboardEvent& msg)
 
 void Input::onTouch(const tTouchEvent& msg)
 {
-    mFreshMouseState = tPoint2f((int32_t)msg.mLocation.x, (int32_t)msg.mLocation.y);
+    tPoint2f leftPoint  = VirtualGamepad::getInstance()->mLeftPoint - tPoint2f(18, 18);
+    tPoint2f rightPoint = VirtualGamepad::getInstance()->mRightPoint - tPoint2f(18, 18);
+
+    tPoint2f intPoint((int)msg.mLocation.x, (int)msg.mLocation.y);
+
+    bool mouseDown = (msg.mEvent == tTouchEvent::kTouchBegin) || (msg.mEvent == tTouchEvent::kTouchMove);
+
+    if (!mouseDown)
+    {
+        if (msg.mID == mLeftEngaged)
+        {
+            mFreshKeyboardState[kA] = false;
+            mFreshKeyboardState[kD] = false;
+            mFreshKeyboardState[kW] = false;
+            mFreshKeyboardState[kS] = false;
+        }
+        else if (msg.mID == mRightEngaged)
+        {
+            mFreshKeyboardState[kUp]    = false;
+            mFreshKeyboardState[kDown]  = false;
+            mFreshKeyboardState[kLeft]  = false;
+            mFreshKeyboardState[kRight] = false;
+        }
+    }
+
+    if (mouseDown && tRectf(leftPoint, 164, 164).contains(intPoint))
+    {
+        mLeftEngaged = msg.mID;
+
+        mFreshKeyboardState[kA] = false;
+        mFreshKeyboardState[kD] = false;
+        mFreshKeyboardState[kW] = false;
+        mFreshKeyboardState[kS] = false;
+
+        if (tRectf(leftPoint, 72, 164).contains(intPoint))
+        {
+            mFreshKeyboardState[kA] = true;
+            mFreshKeyboardState[kD] = false;
+        }
+        else if (tRectf(leftPoint + tPoint2f(128, 0), 72, 164).contains(intPoint))
+        {
+            mFreshKeyboardState[kA] = false;
+            mFreshKeyboardState[kD] = true;
+        }
+
+        if (tRectf(leftPoint, 164, 72).contains(intPoint))
+        {
+            mFreshKeyboardState[kW] = true;
+            mFreshKeyboardState[kS] = false;
+        }
+        else if (tRectf(leftPoint + tPoint2f(0, 128), 164, 72).contains(intPoint))
+        {
+            mFreshKeyboardState[kW] = false;
+            mFreshKeyboardState[kS] = true;
+        }
+    }
+
+    if (mouseDown && tRectf(rightPoint, 164, 164).contains(intPoint))
+    {
+        mRightEngaged = msg.mID;
+
+        mFreshKeyboardState[kUp]    = false;
+        mFreshKeyboardState[kDown]  = false;
+        mFreshKeyboardState[kLeft]  = false;
+        mFreshKeyboardState[kRight] = false;
+
+        if (tRectf(rightPoint, 72, 164).contains(intPoint))
+        {
+            mFreshKeyboardState[kLeft]  = true;
+            mFreshKeyboardState[kRight] = false;
+        }
+        else if (tRectf(rightPoint + tPoint2f(128, 0), 72, 164).contains(intPoint))
+        {
+            mFreshKeyboardState[kLeft]  = false;
+            mFreshKeyboardState[kRight] = true;
+        }
+
+        if (tRectf(rightPoint, 164, 72).contains(intPoint))
+        {
+            mFreshKeyboardState[kUp]    = true;
+            mFreshKeyboardState[kDown]  = false;
+        }
+        else if (tRectf(rightPoint + tPoint2f(0, 128), 164, 72).contains(intPoint))
+        {
+            mFreshKeyboardState[kUp]    = false;
+            mFreshKeyboardState[kDown]  = true;
+        }
+    }
+
+    if (!tRectf(leftPoint, 164, 164).contains(intPoint) && !tRectf(rightPoint, 164, 164).contains(intPoint))
+    {
+        mFreshMouseState = tPoint2f((int32_t)msg.mLocation.x, (int32_t)msg.mLocation.y);
+    }
 }

@@ -17,6 +17,8 @@
 #include "Enemy.hpp"
 #include "EnemySpawner.hpp"
 
+#include "BlackHole.hpp"
+
 #include "EntityManager.hpp"
 
 #include "GameRoot.hpp"
@@ -25,3 +27,4 @@
 #include "PlayerStatus.hpp"
 
 #include "Input.hpp"
+#include "VirtualGamepad.hpp"

@@ -30,6 +30,8 @@ public:
 
     void update();
 
+    virtual void draw(tSpriteBatch* spriteBatch);
+
     bool getIsActive();
     int getPointValue();
 

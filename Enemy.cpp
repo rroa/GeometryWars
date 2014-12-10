@@ -70,6 +70,18 @@ void Enemy::update()
     mVelocity *= 0.8f;
 }
 
+void Enemy::draw(tSpriteBatch* spriteBatch)
+{
+    if (mTimeUntilStart > 0)
+    {
+        float factor = mTimeUntilStart / 60.0f;
+        spriteBatch->draw(1, mImage, tPoint2f((int32_t)mPosition.x, (int32_t)mPosition.y), tOptional<tRectf>(), tColor4f(factor),
+                         mOrientation, getSize() / 2.0f, tVector2f(2.0f - factor));
+    }
+
+    Entity::draw(spriteBatch);
+}
+
 bool Enemy::getIsActive()
 {
     return mTimeUntilStart <= 0;

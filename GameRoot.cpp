@@ -82,6 +82,8 @@ void GameRoot::onRedrawView(float time)
 
     mSpriteBatch->draw(0, Art::getInstance()->getPointer(), Input::getInstance()->getMousePosition(), tOptional<tRectf>());
 
+    VirtualGamepad::getInstance()->draw(mSpriteBatch);
+
     if (PlayerStatus::getInstance()->getIsGameOver())
     {
         sprintf(buf, "Game Over\nYour Score: %d\nHigh Score: %d",

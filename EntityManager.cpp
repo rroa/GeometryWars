@@ -3,6 +3,7 @@
 #include "Entity.hpp"
 #include "Bullet.hpp"
 #include "Enemy.hpp"
+#include "BlackHole.hpp"
 
 #include "EnemySpawner.hpp"
 #include "PlayerShip.hpp"
@@ -14,6 +15,23 @@
 // Find the full tutorial at: http://gamedev.tutsplus.com/series/
 //----------------------------------------------------------------------------------
 
+void EntityManager::KillPlayer()
+{
+    PlayerShip::getInstance()->kill();
+
+    for (std::list<Enemy*>::iterator j = mEnemies.begin(); j != mEnemies.end(); j++)
+    {
+        (*j)->wasShot();
+    }
+
+    for (std::list<BlackHole*>::iterator j = mBlackHoles.begin(); j != mBlackHoles.end(); j++)
+    {
+        (*j)->kill();
+    }
+
+    EnemySpawner::getInstance()->reset();
+}
+
 EntityManager::EntityManager()
 : mIsUpdating(false)
 {
@@ -23,6 +41,16 @@ EntityManager::EntityManager()
 int EntityManager::getCount() const
 {
     return (int)mEntities.size();
+}
+
+int EntityManager::getBlackHoleCount() const
+{
+    return (int)mBlackHoles.size();
+}
+
+std::list<BlackHole*> EntityManager::getBlackHoles() const
+{
+    return mBlackHoles;
 }
 
 void EntityManager::add(Entity* entity)
@@ -45,6 +73,7 @@ void EntityManager::addEntity(Entity* entity)
     {
         case Entity::kBullet:       mBullets.push_back((Bullet*)entity); break;
         case Entity::kEnemy:        mEnemies.push_back((Enemy*)entity); break;
+        case Entity::kBlackHole:    mBlackHoles.push_back((BlackHole*)entity); break;
 
         default: break;
     }
@@ -95,6 +124,16 @@ void EntityManager::update()
         }
     }
     mEnemies.remove(NULL);
+
+    for(std::list<BlackHole*>::iterator iter = mBlackHoles.begin(); iter != mBlackHoles.end(); iter++)
+    {
+        if ((*iter)->isExpired())
+        {
+            delete *iter;
+            *iter = NULL;
+        }
+    }
+    mBlackHoles.remove(NULL);
 }
 
 void EntityManager::handleCollisions()
@@ -129,14 +168,34 @@ void EntityManager::handleCollisions()
     {
         if ((*i)->getIsActive() && isColliding(PlayerShip::getInstance(), *i))
         {
-            PlayerShip::getInstance()->kill();
+            KillPlayer();
+            break;
+        }
+    }
 
-            for (std::list<Enemy*>::iterator j = mEnemies.begin(); j != mEnemies.end(); j++)
+    // handle collisions with black holes
+    for (std::list<BlackHole*>::iterator i = mBlackHoles.begin(); i != mBlackHoles.end(); i++)
+    {
+        for (std::list<Enemy*>::iterator j = mEnemies.begin(); j != mEnemies.end(); j++)
+        {
+            if ((*j)->getIsActive() && isColliding(*i, *j))
             {
                 (*j)->wasShot();
             }
-            
-            EnemySpawner::getInstance()->reset();
+        }
+
+        for (std::list<Bullet*>::iterator j = mBullets.begin(); j != mBullets.end(); j++)
+        {
+            if (isColliding(*i, *j))
+            {
+                (*j)->setExpired();
+                (*i)->wasShot();
+            }
+        }
+
+        if (isColliding(PlayerShip::getInstance(), *i))
+        {
+            KillPlayer();
             break;
         }
     }
@@ -155,3 +214,21 @@ void EntityManager::draw(tSpriteBatch* spriteBatch)
         (*iter)->draw(spriteBatch);
     }
 }
+
+std::list<Entity*> EntityManager::getNearbyEntities(const tPoint2f& pos, float radius)
+{
+    std::list<Entity*> result;
+    for(std::list<Entity*>::iterator iter = mEntities.begin(); iter != mEntities.end(); iter++)
+    {
+        if (*iter)
+        {
+            if (pos.distanceSquared((*iter)->getPosition()) < radius * radius)
+            {
+                result.push_back(*iter);
+            }
+        }
+    }
+
+    return result;
+}
+

@@ -9,7 +9,6 @@
 
 Art::Art()
 {
-
     // TODO: RR: Create utility class to generate these strings.
     //
     std::string resourcesPath = "/home/raulroa/Code/projects/Geometry/Resources/Sprites/";
@@ -19,7 +18,12 @@ Art::Art()
     mWanderer       = new tTexture(tSurface(std::string(resourcesPath + "wanderer.png")));
     mBullet         = new tTexture(tSurface(std::string(resourcesPath + "bullet.png")));
     mPointer        = new tTexture(tSurface(std::string(resourcesPath + "pointer.png")));
+    mBlackHole      = new tTexture(tSurface(std::string(resourcesPath + "blackhole.png")));
+
     mFontTexture    = new tTexture(tSurface(std::string(resourcesPath + "font.png")));
+
+    mVPadTop        = new tTexture(tSurface(std::string(resourcesPath + "vpad_top.png")));
+    mVPadBottom     = new tTexture(tSurface(std::string(resourcesPath + "vpad_bot.png")));
 }
 
 tTexture* Art::getPlayer() const
@@ -45,6 +49,21 @@ tTexture* Art::getBullet() const
 tTexture* Art::getPointer() const
 {
     return mPointer;
+}
+
+tTexture* Art::getBlackHole() const
+{
+    return mBlackHole;
+}
+
+tTexture* Art::getVPadBottom() const
+{
+    return mVPadBottom;
+}
+
+tTexture* Art::getVPadTop() const
+{
+    return mVPadTop;
 }
 
 tSpriteFont Art::getFont() const

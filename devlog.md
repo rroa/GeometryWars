@@ -107,3 +107,14 @@
 * Need to come back to the highscore stuff and some other timing rules for score multipliers but enemy spawning is working out just fine!
 * Submitting changes and taking a break.
 
+10:59PM
+---
+
+* Started working again, now black holes and virtual joysticks will be implemented.
+* The diff showed 17 files to be updated. This is the third part of the neon vector shooter tutorial at game development tuts.
+* This migration should be smooth since there are no platform specific code files.
+
+11:20PM
+---
+
+* Black holes and virtual joysticks have been implemented successfully. Water break!

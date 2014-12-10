@@ -34,6 +34,8 @@ set(SOURCE_FILES
     Utility/tViewport.hpp
     Art.cpp
     Art.hpp
+    BlackHole.cpp
+    BlackHole.hpp
     Bullet.cpp
     Bullet.hpp
     Enemy.cpp
@@ -64,7 +66,9 @@ set(SOURCE_FILES
     Sound.cpp
     Sound.hpp
     TimeManager.cpp
-    TimeManager.hpp)
+    TimeManager.hpp
+    VirtualGamepad.cpp
+    VirtualGamepad.hpp)
 
 # C++11
 INCLUDE(CheckCXXCompilerFlag)
