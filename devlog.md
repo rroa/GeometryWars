@@ -141,3 +141,15 @@
 * It's time to add the iconic Warping Grid.
 * According to the diff tool 12 files need to change.
 * Btw, Meld is awesome, thank God for this tool! :P
+
+12:42AM
+---
+
+* I'm done implementing the warping grid.
+* It's time to implement the time wrapper.
+
+1:06AM
+---
+
+* The time wrapper has been implemented.
+* Water break!

@@ -39,7 +39,7 @@
 #include "tRect.hpp"
 
 //System Time, Input, and Audio
-//#include "tTimer.h"
+#include "tTimer.hpp"
 #include "tInputEvent.hpp"
 //#include "tSound.h"
 

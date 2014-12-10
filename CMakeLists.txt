@@ -28,6 +28,8 @@ set(SOURCE_FILES
     Utility/tSurface.hpp
     Utility/tTexture.cpp
     Utility/tTexture.hpp
+    Utility/tTimer.cpp
+    Utility/tTimer.hpp
     Utility/tVector.cpp
     Utility/tVector.hpp
     Utility/tViewport.cpp

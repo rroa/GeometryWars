@@ -20,8 +20,7 @@ void PlayerShip::MakeExhaustFire()
         tMatrix2x2f rot(tVector2f(cosA, sinA),
                         tVector2f(-sinA, cosA));
 
-        // TODO: RR : Implement this!
-        float t = 100.0;// tTimer::getTimeMS() / 1000.0f;
+        float t = tTimer::getTimeMS() / 1000.0f;
 
         tVector2f baseVel = Extensions::scaleTo(mVelocity, -3);
 

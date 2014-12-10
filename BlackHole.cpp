@@ -42,7 +42,7 @@ void BlackHole::update()
 
 
     // The black holes spray some orbiting particles. The spray toggles on and off every quarter second.
-    /*if ((tTimer::getTimeMS() / 250) % 2 == 0)
+    if ((tTimer::getTimeMS() / 250) % 2 == 0)
     {
         tVector2f sprayVel = MathUtil::fromPolar(mSprayAngle, Extensions::nextFloat(12, 15));
         tColor4f color = ColorUtil::HSVToColor(5, 0.5f, 0.8f);
@@ -50,7 +50,7 @@ void BlackHole::update()
         ParticleState state(sprayVel, ParticleState::kEnemy, 1.0f);
 
         GameRoot::getInstance()->getParticleManager()->createParticle(Art::getInstance()->getLineParticle(), pos, color, 190, 1.5f, state);
-    }*/
+    }
 
     // rotate the spray direction
     mSprayAngle -= tMath::PI * 2.0f / 50.0f;
@@ -62,8 +62,7 @@ void BlackHole::draw(tSpriteBatch* spriteBatch)
 {
 
     // make the size of the black hole pulsate
-    // TODO: RR: Implement timer
-    float scale = 1.0f + 0.1f; //* sinf(tTimer::getTimeMS() * 10.0f / 1000.0f);
+    float scale = 1.0f + 0.1f * sinf(tTimer::getTimeMS() * 10.0f / 1000.0f);
     spriteBatch->draw(1, mImage, tPoint2f((int32_t)mPosition.x, (int32_t)mPosition.y), tOptional<tRectf>(), mColor,
             mOrientation, getSize() / 2.0f, tVector2f(scale));
 }
@@ -79,7 +78,7 @@ void BlackHole::wasShot()
         PlayerStatus::getInstance()->increaseMultiplier();
     }
 
-    float hue = fmodf(3.0f / 1000.0f * 10.0f /*tTimer::getTimeMS()*/, 6);
+    float hue = fmodf(3.0f / 1000.0f * tTimer::getTimeMS(), 6);
     tColor4f color = ColorUtil::HSVToColor(hue, 0.25f, 1);
     const int numParticles = 150;
     float startOffset = Extensions::nextFloat(0, tMath::PI * 2.0f / numParticles);

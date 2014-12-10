@@ -80,8 +80,8 @@ PlayerStatus::PlayerStatus()
     mScore = 0;
     mHighScore = LoadHighScore();
     reset();
-    // TODO: RR: Implement this
-    //mLastTime = tTimer::getTimeMS();
+
+    mLastTime = tTimer::getTimeMS();
 }
 
 void PlayerStatus::reset()
@@ -103,8 +103,7 @@ void    PlayerStatus::update()
 {
     if (mMultiplier > 1)
     {
-        // TODO: RR: Implement this
-        //mMultiplierTimeLeft -= float(tTimer::getTimeMS() - mLastTime) / 1000.0f;
+        mMultiplierTimeLeft -= float(tTimer::getTimeMS() - mLastTime) / 1000.0f;
 
         if (mMultiplierTimeLeft <= 0)
         {
@@ -113,8 +112,7 @@ void    PlayerStatus::update()
         }
     }
 
-    // TODO: RR: Implement this
-    //mLastTime = tTimer::getTimeMS();
+    mLastTime = tTimer::getTimeMS();
 }
 
 void PlayerStatus::addPoints(int basePoints)
