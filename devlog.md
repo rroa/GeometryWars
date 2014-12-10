@@ -127,3 +127,8 @@
 * It is time to implement the particle effects. This is the fourth part of the tutorial found in game development tuts for the Neon Vector Shooter for iOS
   http://gamedevelopment.tutsplus.com/tutorials/make-a-neon-vector-shooter-for-ios-particle-effects--gamedev-14635
 * The diff tool identified 19 modifications. Again none seem to have iOS specific code, which will make this migration a breeze.
+
+12:02AM
+---
+
+* Got Particles?
