@@ -36,6 +36,10 @@ set(SOURCE_FILES
     Art.hpp
     Bullet.cpp
     Bullet.hpp
+    Enemy.cpp
+    Enemy.hpp
+    EnemySpawner.cpp
+    EnemySpawner.hpp
     Entity.cpp
     Entity.hpp
     EntityManager.cpp
@@ -53,6 +57,8 @@ set(SOURCE_FILES
     package.h
     PlayerShip.cpp
     PlayerShip.hpp
+    PlayerStatus.cpp
+    PlayerStatus.hpp
     SDLWrapper.cpp
     SDLWrapper.hpp
     Sound.cpp

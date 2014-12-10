@@ -2,7 +2,9 @@
 
 #include "Entity.hpp"
 #include "Bullet.hpp"
+#include "Enemy.hpp"
 
+#include "EnemySpawner.hpp"
 #include "PlayerShip.hpp"
 
 #include "EntityManager.hpp"
@@ -42,6 +44,7 @@ void EntityManager::addEntity(Entity* entity)
     switch (entity->getKind())
     {
         case Entity::kBullet:       mBullets.push_back((Bullet*)entity); break;
+        case Entity::kEnemy:        mEnemies.push_back((Enemy*)entity); break;
 
         default: break;
     }
@@ -50,6 +53,8 @@ void EntityManager::addEntity(Entity* entity)
 void EntityManager::update()
 {
     mIsUpdating = true;
+
+    handleCollisions();
 
     for(std::list<Entity*>::iterator iter = mEntities.begin(); iter != mEntities.end(); iter++)
     {
@@ -80,6 +85,61 @@ void EntityManager::update()
         }
     }
     mBullets.remove(NULL);
+
+    for(std::list<Enemy*>::iterator iter = mEnemies.begin(); iter != mEnemies.end(); iter++)
+    {
+        if ((*iter)->isExpired())
+        {
+            delete *iter;
+            *iter = NULL;
+        }
+    }
+    mEnemies.remove(NULL);
+}
+
+void EntityManager::handleCollisions()
+{
+    for (std::list<Enemy*>::iterator i = mEnemies.begin(); i != mEnemies.end(); i++)
+    {
+        for (std::list<Enemy*>::iterator j = mEnemies.begin(); j != mEnemies.end(); j++)
+        {
+            if (isColliding(*i, *j))
+            {
+                (*i)->handleCollision(*j);
+                (*j)->handleCollision(*i);
+            }
+        }
+    }
+
+    // handle collisions between bullets and enemies
+    for (std::list<Enemy*>::iterator i = mEnemies.begin(); i != mEnemies.end(); i++)
+    {
+        for (std::list<Bullet*>::iterator j = mBullets.begin(); j != mBullets.end(); j++)
+        {
+            if (isColliding(*i, *j))
+            {
+                (*i)->wasShot();
+                (*j)->setExpired();
+            }
+        }
+    }
+
+    // handle collisions between the player and enemies
+    for (std::list<Enemy*>::iterator i = mEnemies.begin(); i != mEnemies.end(); i++)
+    {
+        if ((*i)->getIsActive() && isColliding(PlayerShip::getInstance(), *i))
+        {
+            PlayerShip::getInstance()->kill();
+
+            for (std::list<Enemy*>::iterator j = mEnemies.begin(); j != mEnemies.end(); j++)
+            {
+                (*j)->wasShot();
+            }
+            
+            EnemySpawner::getInstance()->reset();
+            break;
+        }
+    }
 }
 
 bool EntityManager::isColliding(Entity* a, Entity* b)

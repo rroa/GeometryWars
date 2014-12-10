@@ -15,6 +15,9 @@ protected:
     tAutosizeViewport*    mViewport;
 
 protected:
+    void DrawRightAlignedString(const std::string& str, int32_t y);
+
+protected:
     GameRoot();
 
 public:

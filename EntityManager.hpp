@@ -14,6 +14,7 @@ class EntityManager
 {
 protected:
     std::list<Entity*>      mEntities;
+    std::list<Enemy*>       mEnemies;
     std::list<Entity*>      mAddedEntities;
     std::list<Bullet*>      mBullets;
     bool mIsUpdating;
@@ -30,6 +31,7 @@ public:
     void update();
     void draw(tSpriteBatch* spriteBatch);
 
+    void handleCollisions();
     bool isColliding(Entity* a, Entity* b);
 
     friend class tSingleton<EntityManager>;

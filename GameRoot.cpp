@@ -9,6 +9,14 @@
 
 GameRoot* gApp = GameRoot::getInstance();
 
+#define kScale 3.0f
+void GameRoot::DrawRightAlignedString(const std::string& str, int32_t y)
+{
+    int32_t textWidth = int32_t(Art::getInstance()->getFont().getTextSize(str).width * kScale);
+    mSpriteBatch->drawString(1, Art::getInstance()->getFont(), str, tPoint2f(mViewportSize.width - textWidth - 5, y), tColor4f(1,1,1,1),
+                            0, tPoint2f(0,0), tVector2f(kScale));
+}
+
 GameRoot::GameRoot()
 :   mViewportSize(1136, 640),
     mSpriteBatch(NULL)
@@ -51,14 +59,40 @@ void GameRoot::onInitView()
 
 void GameRoot::onRedrawView(float time)
 {
+    char buf[80];
 #pragma unused(time)
     Input::getInstance()->update();
 
+    PlayerStatus::getInstance()->update();
     EntityManager::getInstance()->update();
+    EnemySpawner::getInstance()->update();
 
     EntityManager::getInstance()->draw(mSpriteBatch);
 
+    // Draw user interface
+    sprintf(buf, "Lives: %d", PlayerStatus::getInstance()->getLives());
+    mSpriteBatch->drawString(1, Art::getInstance()->getFont(), buf, tPoint2f(5,5), tColor4f(1,1,1,1),
+                            0, tPoint2f(0,0), tVector2f(kScale));
+
+    sprintf(buf, "Score: %d", PlayerStatus::getInstance()->getScore());
+    DrawRightAlignedString(buf, 5);
+
+    sprintf(buf, "Multiplier: %d", PlayerStatus::getInstance()->getMultiplier());
+    DrawRightAlignedString(buf, 35);
+
     mSpriteBatch->draw(0, Art::getInstance()->getPointer(), Input::getInstance()->getMousePosition(), tOptional<tRectf>());
+
+    if (PlayerStatus::getInstance()->getIsGameOver())
+    {
+        sprintf(buf, "Game Over\nYour Score: %d\nHigh Score: %d",
+                PlayerStatus::getInstance()->getScore(),
+                PlayerStatus::getInstance()->getHighScore());
+
+        tDimension2f textSize = Art::getInstance()->getFont().getTextSize(buf);
+        mSpriteBatch->drawString(1, Art::getInstance()->getFont(), buf, (mViewportSize - textSize) / 2, tColor4f(1,1,1,1),
+                                0, tPoint2f(0,0), tVector2f(kScale));
+    }
+    
 
 //Run redraw logic here
     mViewport->run();

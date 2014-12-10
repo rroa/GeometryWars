@@ -23,6 +23,15 @@ void PlayerShip::update()
     if (getIsDead())
     {
         mFramesUntilRespawn--;
+        if (mFramesUntilRespawn == 0)
+        {
+            if (PlayerStatus::getInstance()->getLives() == 0)
+            {
+                PlayerStatus::getInstance()->reset();
+                mPosition = tVector2f(GameRoot::getInstance()->getViewportSize().width / 2.0f,
+                                      GameRoot::getInstance()->getViewportSize().height / 2.0f);
+            }
+        }
     }
     else
     {
@@ -86,5 +95,6 @@ bool PlayerShip::getIsDead()
 
 void PlayerShip::kill()
 {
-    mFramesUntilRespawn = 60;
+    PlayerStatus::getInstance()->removeLife();
+    mFramesUntilRespawn = PlayerStatus::getInstance()->getIsGameOver() ? 300 : 120;
 }

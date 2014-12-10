@@ -88,10 +88,22 @@
 
 * I was right, input was simple enough to get it working in just 5 minutes.
 
-7:00PM
+7:48PM
 ---
 
 * Alright let's keep going, the goal now is to get the enemies spawning and keep track of scores. Let's go!
 * Thanks god for the diff tool. It's easy to compare which files have changed between stages of the tutorial without having to actually read the tutorial!
 * Alright 14 files!
+
+8:24PM
+---
+
+* Everytime I see a .mm file I know beforehand that there's platform specific code mixed with C++. That's not awesome but at least I get a heads up before opening the file.
+* Just stubbed out the highscore implementation in PlayerStatus for now.
+
+8:51PM
+---
+
+* Need to come back to the highscore stuff and some other timing rules for score multipliers but enemy spawning is working out just fine!
+* Submitting changes and taking a break.
 

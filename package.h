@@ -14,10 +14,14 @@
 #include "Entity.hpp"
 #include "Bullet.hpp"
 
+#include "Enemy.hpp"
+#include "EnemySpawner.hpp"
+
 #include "EntityManager.hpp"
 
 #include "GameRoot.hpp"
 
 #include "PlayerShip.hpp"
+#include "PlayerStatus.hpp"
 
 #include "Input.hpp"
