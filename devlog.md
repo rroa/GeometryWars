@@ -1,4 +1,4 @@
-## Space Combat dev log
+## Geometry Wars clone dev log
 
 #### 12/07/2014
 
