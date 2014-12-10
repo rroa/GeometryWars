@@ -14,7 +14,7 @@
 
 * Made a commit with the new Game class being used from main. Things are starting to roll on...
 * For previous SDL projects I had used some sort of SDL Event class abstraction. This time I'm trying to avoid this, since it adds complexity that the cross compiler doesn't like.
-  * This means that the Game class might look convoluted but I can manage. In the end the Game class will only implement SDL stuff.
+  * This means that the Game class might look convoluted, but I can manage. In the end the Game class will only implement SDL stuff.
 
 5:43PM
 ---
@@ -132,3 +132,12 @@
 ---
 
 * Got Particles?
+* YouTube break!
+
+12:22AM
+---
+
+* This is the fifth part of the tutorial found in game development tuts for the Neon Vector Shooter for iOS.
+* It's time to add the iconic Warping Grid.
+* According to the diff tool 12 files need to change.
+* Btw, Meld is awesome, thank God for this tool! :P

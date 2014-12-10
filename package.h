@@ -12,6 +12,8 @@
 #include "Art.hpp"
 #include "Sound.hpp"
 
+#include "Grid.hpp"
+
 #include "Entity.hpp"
 #include "Bullet.hpp"
 

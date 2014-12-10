@@ -26,6 +26,8 @@ void Bullet::update()
 
     mPosition += mVelocity;
 
+    GameRoot::getInstance()->getGrid()->applyExplosiveForce(0.5f * mVelocity.length(), mPosition, 80);
+
     if (!tRectf(0, 0, GameRoot::getInstance()->getViewportSize()).contains(tPoint2f((int32_t)mPosition.x, (int32_t)mPosition.y)))
     {
         mIsExpired = true;

@@ -39,3 +39,12 @@ tColor4f Extensions::colorLerp(const tColor4f& a, const tColor4f& b, float alpha
                     tMath::mix(a.b, b.b, alpha),
                     tMath::mix(a.a, b.a, alpha));
 }
+
+void Extensions::drawLine(tSpriteBatch* spriteBatch, const tVector2f& start, const tVector2f& end, const tColor4f& color, float thickness)
+{
+    tVector2f delta = end - start;
+
+    spriteBatch->draw(0, Art::getInstance()->getPixel(), tPoint2f((int32_t)start.x, (int32_t)start.y), tOptional<tRectf>(), color,
+                     toAngle(delta), tPoint2f(0, 0), tVector2f(delta.length(), thickness));
+}
+

@@ -52,6 +52,8 @@ set(SOURCE_FILES
     Extensions.hpp
     GameRoot.cpp
     GameRoot.hpp
+    Grid.cpp
+    Grid.hpp
     IncludeGL.hpp
     Input.cpp
     Input.hpp

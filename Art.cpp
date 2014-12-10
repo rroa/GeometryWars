@@ -27,6 +27,8 @@ Art::Art()
 
     mLineParticle   = new tTexture(tSurface(std::string(resourcesPath + "laser.png")));
     mGlow           = new tTexture(tSurface(std::string(resourcesPath + "glow.png")));
+
+	mPixel          = new tTexture(tSurface(std::string(resourcesPath + "pixel.png")));
 }
 
 tTexture* Art::getPlayer() const
@@ -67,6 +69,11 @@ tTexture* Art::getLineParticle() const
 tTexture* Art::getGlow() const
 {
     return mGlow;
+}
+
+tTexture* Art::getPixel() const
+{
+    return mPixel;
 }
 
 tTexture* Art::getVPadBottom() const

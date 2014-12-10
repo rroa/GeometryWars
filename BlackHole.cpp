@@ -54,6 +54,8 @@ void BlackHole::update()
 
     // rotate the spray direction
     mSprayAngle -= tMath::PI * 2.0f / 50.0f;
+
+    GameRoot::getInstance()->getGrid()->applyImplosiveForce((float)sinf(mSprayAngle / 2.0f) * 10 + 20, mPosition, 200);
 }
 
 void BlackHole::draw(tSpriteBatch* spriteBatch)
@@ -72,6 +74,9 @@ void BlackHole::wasShot()
     if (mHitPoints <= 0)
     {
         mIsExpired = true;
+
+        PlayerStatus::getInstance()->addPoints(5);
+        PlayerStatus::getInstance()->increaseMultiplier();
     }
 
     float hue = fmodf(3.0f / 1000.0f * 10.0f /*tTimer::getTimeMS()*/, 6);

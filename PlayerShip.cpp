@@ -80,7 +80,10 @@ void PlayerShip::update()
                 mPosition = tVector2f(GameRoot::getInstance()->getViewportSize().width / 2.0f,
                                       GameRoot::getInstance()->getViewportSize().height / 2.0f);
             }
+
+            GameRoot::getInstance()->getGrid()->applyDirectedForce(tVector3f(0, 0, 5000), tVector3f(mPosition.x, mPosition.y, 0), 50);
         }
+
     }
     else
     {

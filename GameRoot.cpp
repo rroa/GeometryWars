@@ -20,7 +20,8 @@ void GameRoot::DrawRightAlignedString(const std::string& str, int32_t y)
 GameRoot::GameRoot()
 :   mParticleManager(1024 * 20),
     mViewportSize(1136, 640),
-    mSpriteBatch(NULL)
+    mSpriteBatch(NULL),
+    mGrid(NULL)
 {
 }
 
@@ -34,10 +35,20 @@ ParticleManager* GameRoot::getParticleManager()
     return &mParticleManager;
 }
 
+Grid* GameRoot::getGrid()
+{
+    return mGrid;
+}
+
 void GameRoot::onInitView()
 {
     Art::getInstance();
     //Sound::getInstance();
+
+    const int maxGridPoints = 600;
+
+    tVector2f gridSpacing = tVector2f((float)sqrtf(mViewportSize.width * mViewportSize.height / maxGridPoints));
+    mGrid = new Grid(tRectf(0,0, mViewportSize), gridSpacing);
 
     EntityManager::getInstance()->add(PlayerShip::getInstance());
 
@@ -73,8 +84,10 @@ void GameRoot::onRedrawView(float time)
     EntityManager::getInstance()->update();
     EnemySpawner::getInstance()->update();
     mParticleManager.update();
+    mGrid->update();
 
     EntityManager::getInstance()->draw(mSpriteBatch);
+    mGrid->draw(mSpriteBatch);
     mParticleManager.draw(mSpriteBatch);
 
     // Draw user interface

@@ -17,4 +17,6 @@ public:
     static tVector2f    nextVector2(float minLength, float maxLength);
 
     static tColor4f     colorLerp(const tColor4f& a, const tColor4f& b, float alpha);
+
+    static void         drawLine(tSpriteBatch* spriteBatch, const tVector2f& start, const tVector2f& end, const tColor4f& color, float thickness = 2.0f);
 };

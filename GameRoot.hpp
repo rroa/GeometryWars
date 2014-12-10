@@ -11,7 +11,8 @@ class GameRoot
 protected:
     ParticleManager     mParticleManager;
     tDimension2f        mViewportSize;
-    tSpriteBatch*       mSpriteBatch;
+    tSpriteBatch* mSpriteBatch;
+    Grid*               mGrid;
 
     tAutosizeViewport*    mViewport;
 
@@ -24,6 +25,7 @@ protected:
 public:
     tDimension2f        getViewportSize();
     ParticleManager*    getParticleManager();
+    Grid*               getGrid();
 
     void onInitView();
     void onRedrawView(float time);
