@@ -15,6 +15,7 @@ protected:
     tTexture* mWanderer;
     tTexture* mBullet;
     tTexture* mPointer;
+    tTexture* mFontTexture;
 
 protected:
     Art();
@@ -25,6 +26,7 @@ public:
     tTexture* getWanderer() const;
     tTexture* getBullet() const;
     tTexture* getPointer() const;
+    tSpriteFont getFont() const;
 
     friend class tSingleton<Art>;
 };

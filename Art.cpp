@@ -19,6 +19,7 @@ Art::Art()
     mWanderer       = new tTexture(tSurface(std::string(resourcesPath + "wanderer.png")));
     mBullet         = new tTexture(tSurface(std::string(resourcesPath + "bullet.png")));
     mPointer        = new tTexture(tSurface(std::string(resourcesPath + "pointer.png")));
+    mFontTexture    = new tTexture(tSurface(std::string(resourcesPath + "font.png")));
 }
 
 tTexture* Art::getPlayer() const
@@ -44,4 +45,9 @@ tTexture* Art::getBullet() const
 tTexture* Art::getPointer() const
 {
     return mPointer;
+}
+
+tSpriteFont Art::getFont() const
+{
+    return tSpriteFont( mFontTexture, tTextSheet(tRectf( 0, 0, 256,  36), tDimension2f( 8, 12), tDimension2f( 6, 10 ), ' ', '~' ));
 }
