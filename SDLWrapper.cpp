@@ -257,6 +257,8 @@ namespace Geometry
     {
         //std::cout << "motion: " << x << ", " << y << " " << relx << ", " << rely << "\n";
         //std::cout << "buttons: left: " << left << ", right: " << right << " middle: " << middle << "\n";
+        /*Input::getInstance()->onTouch(tTouchEvent(tTouchEvent::kTouchMove,
+                tPoint2f(x, y), 0));*/
     }
 
     void SDLWrapper::OnLButtonDown( int x, int y)
@@ -353,7 +355,7 @@ namespace Geometry
         //
         //glClearColor( 0.1f, 0.1f, 0.15f, 1.0f );
         //glClear( GL_COLOR_BUFFER_BIT );
-        GameRoot::getInstance()->onRedrawView(0);
+        GameRoot::getInstance()->onRedrawView( m_deltaTime );
 
         // Bringing the back buffer to the front
         //

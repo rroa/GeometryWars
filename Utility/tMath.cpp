@@ -1,5 +1,9 @@
 #include "package.hpp"
 
+#if EMSCRIPTEN
+    #include <cstdlib>
+    #include <time.h>
+#endif
 //---------------------------------------------------------------------------------
 // Written by Terence J. Grant - tjgrant [at] tatewake [dot] com
 // Find the full tutorial at: http://gamedev.tutsplus.com/series/

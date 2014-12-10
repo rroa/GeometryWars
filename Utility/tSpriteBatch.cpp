@@ -3,6 +3,10 @@
 #include <sys/stat.h>
 #include <cstdio>
 
+#if EMSCRIPTEN
+    #include <cstdlib>
+#endif
+
 //---------------------------------------------------------------------------------
 // RR: Added file management functions equivalent to iOS Objective-C API
 //---------------------------------------------------------------------------------

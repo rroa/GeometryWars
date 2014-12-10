@@ -1,15 +1,17 @@
+ASSETS=assets
 OUTDIR=html_output
-SOURCES=$(wildcard *.c *.cpp)
-OUT=$(OUTDIR)/out.html
+SOURCES=$(wildcard Utility/*.c Utility/*.cpp *.c *.cpp)
+OUT=$(OUTDIR)/index.html
 
 # Emscripten
-EMCC=em++
-EMCCFLAGS=-O2 -s FULL_ES2=1 -g4
+EMCC=/home/raulroa/Code/xcompiler/emscripten/em++
+EMCCFLAGS=-O2 -s ALLOW_MEMORY_GROWTH=1   -s FULL_ES2=1 --embed-file "player.png" --embed-file "seeker.png" --embed-file "wanderer.png" --embed-file "bullet.png" --embed-file "pointer.png"
 
 # Let's build
 
 output:
 	mkdir -p $(OUTDIR)
+	mkdir -p $(OUTDIR)/$(ASSETS)
 	$(EMCC) $(SOURCES) $(EMCCFLAGS) -o $(OUT)
 clean:
 	rm -rf $(OUTDIR)
