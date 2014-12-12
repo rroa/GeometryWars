@@ -1,5 +1,6 @@
 #include "Utility/package.hpp"
 #include "ColorUtil.hpp"
+#include <cstdlib>
 
 //---------------------------------------------------------------------------------
 // Written by Terence J. Grant - tjgrant [at] tatewake [dot] com

@@ -84,10 +84,13 @@ tSpriteBatch::tSpriteBatch()
     //---------------------------------------------------------------------------------
     // RR: Removed platform specific implementation for file management.
     //---------------------------------------------------------------------------------
-    const std::string resourcePath = "/home/raulroa/Code/projects/Geometry/Resources/Shaders";
-
-    std::string vertPath = resourcePath + std::string("/spritebatch.vert");
-    std::string fragPath = resourcePath + std::string("/spritebatch.frag");
+    #if EMSCRIPTEN
+        const std::string resourcePath = "";
+    #else
+        const std::string resourcePath = "/home/raulroa/Code/projects/Geometry/Resources/Shaders/";
+    #endif
+    std::string vertPath = resourcePath + std::string("spritebatch.vert");
+    std::string fragPath = resourcePath + std::string("spritebatch.frag");
     
     if( file_exists( vertPath.c_str( )) &&
         file_exists( vertPath.c_str( )))

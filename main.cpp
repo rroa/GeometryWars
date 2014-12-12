@@ -1,5 +1,5 @@
 #include "SDLWrapper.hpp"
-#include "Art.hpp"
+//#include <iostream>
 
 #if EMSCRIPTEN
     #include <emscripten.h>
@@ -18,6 +18,11 @@ void step ()
 {
     game->OnExecute( );
 }
+
+void channelDone(int channel) {
+    printf("channel %d finished playback.\n",channel);
+}
+
 
 int main()
 {        

@@ -16,7 +16,7 @@ class EntityManager
 protected:
     std::list<Entity*>      mEntities;
     std::list<Enemy*>       mEnemies;
-    std::list<Entity*>      mAddedEntities;
+    std::vector<Entity*>    mAddedEntities;
     std::list<Bullet*>      mBullets;
     std::list<BlackHole*>   mBlackHoles;
     bool mIsUpdating;
@@ -35,6 +35,8 @@ public:
 
     void add(Entity* entity);
     void addEntity(Entity* entity);
+    void deleteEntity(Entity* entity);
+    void CleanUp();
 
     void update();
     void draw(tSpriteBatch* spriteBatch);

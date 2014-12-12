@@ -153,3 +153,29 @@
 
 * The time wrapper has been implemented.
 * Water break!
+
+#### 12/10/2014
+
+10:28PM
+---
+
+* So today is time to port the game to the Web using ConConJS.
+
+10:58PM
+---
+
+* The tools runs properly and the game is rendering in the browser, but there is some sort of issue with my main loop and the JavaScript code hangs... Looking into it.
+
+11:11PM
+---
+
+* I was able to get a more explicit exception regarding my program hanging... the stack is blowing up somewhere...
+
+11:46PM
+---
+
+* Still debugging!
+
+12:23AM
+---
+* Woops! Two hours in and I finally was able to narrow down the problem to the entity management.

@@ -28,7 +28,7 @@ EnemySpawner::EnemySpawner()
 
 void EnemySpawner::update()
 {
-    if (!PlayerShip::getInstance()->getIsDead() && EntityManager::getInstance()->getCount() < 200)
+    if (!PlayerShip::getInstance()->getIsDead() && EntityManager::getInstance()->getCount() < 3)
     {
         if (int32_t(tMath::random() * mInverseSpawnChance) == 0)
         {

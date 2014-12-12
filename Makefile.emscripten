@@ -5,7 +5,7 @@ OUT=$(OUTDIR)/index.html
 
 # Emscripten
 EMCC=/home/raulroa/Code/xcompiler/emscripten/em++
-EMCCFLAGS=-O2 -s ALLOW_MEMORY_GROWTH=1   -s FULL_ES2=1 --embed-file "player.png" --embed-file "seeker.png" --embed-file "wanderer.png" --embed-file "bullet.png" --embed-file "pointer.png"
+EMCCFLAGS=-Os -s ASSERTIONS=1 -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1 --embed-file "spritebatch.vert" --embed-file "spritebatch.frag" --embed-file "highscore.txt" --embed-file "player.png" --embed-file "seeker.png" --embed-file "wanderer.png" --embed-file "bullet.png" --embed-file "pointer.png" --embed-file "blackhole.png" --embed-file "font.png" --embed-file "vpad_top.png" --embed-file "vpad_bot.png" --embed-file "laser.png" --embed-file "glow.png" --embed-file "pixel.png"
 
 # Let's build
 

@@ -10,10 +10,21 @@
 
 #include "EntityManager.hpp"
 
+#include <iostream>
+#include <algorithm>
+
 //---------------------------------------------------------------------------------
 // Written by Terence J. Grant - tjgrant [at] tatewake [dot] com
 // Find the full tutorial at: http://gamedev.tutsplus.com/series/
 //----------------------------------------------------------------------------------
+
+namespace
+{
+    bool NeedsCleanup( Entity* actor )
+    {
+        return actor->isExpired();
+    }
+}
 
 void EntityManager::KillPlayer()
 {
@@ -63,6 +74,7 @@ void EntityManager::add(Entity* entity)
     {
         mAddedEntities.push_back(entity);
     }
+    //mAddedEntities.push_back(entity);
 }
 
 void EntityManager::addEntity(Entity* entity)
@@ -79,6 +91,63 @@ void EntityManager::addEntity(Entity* entity)
     }
 }
 
+void EntityManager::deleteEntity(Entity* entity)
+{
+    // Just in case :P
+    if(!entity) return;
+
+    // Retrieve actor from entities list
+    //
+    std::list<Entity*>::iterator entityResult = std::find( mEntities.begin(), mEntities.end(), entity );
+
+    // Retrieve entity from enemies list
+    //
+    std::list<Enemy*>::iterator enemyResult = std::find( mEnemies.begin(), mEnemies.end(), entity );
+
+    // Retrieve entity from bullets list
+    //
+    std::list<Bullet*>::iterator bulletsResult = std::find( mBullets.begin(), mBullets.end(), entity );
+
+    // Retrieve entity from bullets list
+    //
+    std::list<BlackHole*>::iterator blackholeResult = std::find( mBlackHoles.begin(), mBlackHoles.end(), entity );
+
+    // Deleting entity iterator from lists
+    //
+    if( mEntities.size() > 0 && entityResult != mEntities.end() )
+    {
+        mEntities.erase( entityResult );
+    }
+
+    if( mEnemies.size() > 0 && enemyResult != mEnemies.end() )
+    {
+        mEnemies.erase( enemyResult );
+    }
+
+    if( mBullets.size() > 0 && bulletsResult != mBullets.end() )
+    {
+        mBullets.erase( bulletsResult );
+    }
+
+    if( mBlackHoles.size() > 0 && blackholeResult != mBlackHoles.end() )
+    {
+        mBlackHoles.erase( blackholeResult );
+    }
+
+    // Removing the allocated pointer
+    //
+    delete entity;
+}
+
+void EntityManager::CleanUp()
+{
+    std::list<Entity*>::iterator t = std::find_if ( mEntities.begin(), mEntities.end(), NeedsCleanup );
+    if(t != mEntities.end() )
+    {
+        deleteEntity( *t );
+    }
+}
+
 void EntityManager::update()
 {
     mIsUpdating = true;
@@ -88,52 +157,20 @@ void EntityManager::update()
     for(std::list<Entity*>::iterator iter = mEntities.begin(); iter != mEntities.end(); iter++)
     {
         (*iter)->update();
-        if ((*iter)->isExpired())
-        {
-            *iter = NULL;
-        }
     }
+
+    CleanUp();
 
     mIsUpdating = false;
 
-    for(std::list<Entity*>::iterator iter = mAddedEntities.begin(); iter != mAddedEntities.end(); iter++)
+    for(std::vector<Entity*>::iterator iter = mAddedEntities.begin(); iter != mAddedEntities.end(); iter++)
     {
         addEntity(*iter);
     }
 
     mAddedEntities.clear();
 
-    mEntities.remove(NULL);
-
-    for(std::list<Bullet*>::iterator iter = mBullets.begin(); iter != mBullets.end(); iter++)
-    {
-        if ((*iter)->isExpired())
-        {
-            delete *iter;
-            *iter = NULL;
-        }
-    }
-    mBullets.remove(NULL);
-
-    for(std::list<Enemy*>::iterator iter = mEnemies.begin(); iter != mEnemies.end(); iter++)
-    {
-        if ((*iter)->isExpired())
-        {
-            delete *iter;
-            *iter = NULL;
-        }
-    }
-    mEnemies.remove(NULL);
-
-    for(std::list<BlackHole*>::iterator iter = mBlackHoles.begin(); iter != mBlackHoles.end(); iter++)
-    {
-        if ((*iter)->isExpired())
-        {
-            delete *iter;
-            *iter = NULL;
-        }
-    }
-    mBlackHoles.remove(NULL);
+    std::cout << "Bullet count: " << mBullets.size() << std::endl;
 }
 
 void EntityManager::handleCollisions()

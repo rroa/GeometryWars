@@ -24,6 +24,8 @@ set(SOURCE_FILES
     Utility/tSpriteBatch.hpp
     Utility/tSpriteFont.cpp
     Utility/tSpriteFont.hpp
+    Utility/tSound.cpp
+    Utility/tSound.hpp
     Utility/tSurface.cpp
     Utility/tSurface.hpp
     Utility/tTexture.cpp
@@ -122,5 +124,15 @@ link_libraries (
    ${SDL_LIBRARY}
    SDLmain # Sadly not included in SDL_LIBRARY variable
 )
+
+#########################################################
+# FIND SDL MIXER
+#########################################################
+find_package(SDL_mixer REQUIRED)
+include_directories(${SDL_MIXER_INCLUDE_DIRS})
+link_libraries (
+   ${SDL_MIXER_LIBRARIES}
+)
+
 
 add_executable(Geometry ${SOURCE_FILES})

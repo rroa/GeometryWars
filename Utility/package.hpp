@@ -41,7 +41,7 @@
 //System Time, Input, and Audio
 #include "tTimer.hpp"
 #include "tInputEvent.hpp"
-//#include "tSound.h"
+#include "tSound.hpp"
 
 //OpenGL helper classes
 #include "tSurface.hpp"

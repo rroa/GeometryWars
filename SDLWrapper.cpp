@@ -82,19 +82,24 @@ namespace Geometry
         if(( m_mainwindow = SDL_SetVideoMode( m_width, m_height, 32, 
             SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL) 
         {
-            std::cerr << "Unable to set video mode: " << SDL_GetError() << std::endl;
-
+            #if !EMSCRIPTEN
+                std::cerr << "Unable to set video mode: " << SDL_GetError() << std::endl;
+            #endif
             return false;
         }
 
         GLenum glew_status = glewInit();
         if (GLEW_OK != glew_status) {
-            std::cerr  << stderr, "Error: %s\n", glewGetErrorString(glew_status);
+            #if !EMSCRIPTEN
+                std::cerr  << stderr, "Error: %s\n", glewGetErrorString(glew_status);
+            #endif
             return false;
         }
 
         if (!GLEW_VERSION_2_0) {
-            std::cerr  << stderr, "No support for OpenGL 2.0 found\n";
+            #if !EMSCRIPTEN
+                std::cerr  << stderr, "No support for OpenGL 2.0 found\n";
+            #endif
             return false;
         }
 
@@ -156,7 +161,7 @@ namespace Geometry
         // Frame ends
         //
         ++m_nUpdates;
-        m_deltaTime = m_nUpdates / static_cast< double >( DESIRED_FRAME_RATE );        
+        m_deltaTime = m_nUpdates / static_cast< double >( DESIRED_FRAME_RATE );
     }
 
     void SDLWrapper::OnInput( )
@@ -255,51 +260,46 @@ namespace Geometry
 
     void SDLWrapper::OnMouseMove( int x, int y, int relx, int rely, bool left, bool right, bool middle )
     {
-        //std::cout << "motion: " << x << ", " << y << " " << relx << ", " << rely << "\n";
-        //std::cout << "buttons: left: " << left << ", right: " << right << " middle: " << middle << "\n";
         Input::getInstance()->onTouch(tTouchEvent(tTouchEvent::kTouchMove,
                 tPoint2f(x, y), 0));
     }
 
     void SDLWrapper::OnLButtonDown( int x, int y)
     {
-        std::cout << "Left button down: " << x << ", " << y << "\n";
         Input::getInstance()->onTouch(tTouchEvent(tTouchEvent::kTouchBegin,
                 tPoint2f(x, y), 0));
     }
 
     void SDLWrapper::OnRButtonDown( int x, int y )
     {
-        std::cout << "Right button down: " << x << ", " << y << "\n";
+
     }
 
     void SDLWrapper::OnMButtonDown( int x, int y )
     {
-        std::cout << "Middle button down: " << x << ", " << y << "\n";
+
     }
 
     void SDLWrapper::OnLButtonUp( int x, int y )
     {
-        std::cout << "Left button Up: " << x << ", " << y << "\n";
         Input::getInstance()->onTouch(tTouchEvent(tTouchEvent::kTouchEnd,
                 tPoint2f(x, y), 0));
     }
 
     void SDLWrapper::OnRButtonUp( int x, int y )
     {
-        std::cout << "Right button Up: " << x << ", " << y << "\n";
+
     }
 
     void SDLWrapper::OnMButtonUp( int x, int y )
     {
-        std::cout << "Middle button Up: " << x << ", " << y << "\n";
+
     }
 
     void SDLWrapper::OnFingerDown( SDL_Event* touchFingerEvent )
     {
         #if EMSCRIPTEN
         SDL_TouchFingerEvent *t = (SDL_TouchFingerEvent*)touchFingerEvent;
-        std::cout << "Finger Down! " << t->touchId << "\n";
         #endif
     }
 
@@ -307,7 +307,6 @@ namespace Geometry
     {
         #if EMSCRIPTEN
         SDL_TouchFingerEvent *t = (SDL_TouchFingerEvent*)touchFingerEvent;
-        std::cout << "Finger Up! " << t->touchId << "\n";
         #endif
     }
 
@@ -315,7 +314,6 @@ namespace Geometry
     {
         #if EMSCRIPTEN
         SDL_TouchFingerEvent *t = (SDL_TouchFingerEvent*)touchFingerEvent;
-        std::cout << "Finger Motion! " << t->touchId << "\n";
         #endif
     }
 
@@ -347,15 +345,7 @@ namespace Geometry
 
     void SDLWrapper::OnRender( )
     {
-        // TODO: Should this be set per render call?
-        //
-        //glViewport( 0, 0, m_width, m_height );
-
-        // Clear buffer
-        //
-        //glClearColor( 0.1f, 0.1f, 0.15f, 1.0f );
-        //glClear( GL_COLOR_BUFFER_BIT );
-        GameRoot::getInstance()->onRedrawView( m_deltaTime );
+        GameRoot::getInstance()->onRedrawView( tTimer::getTimeMS() );
 
         // Bringing the back buffer to the front
         //

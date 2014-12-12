@@ -22,8 +22,7 @@ GameRoot::GameRoot()
     mViewportSize(1136, 640),
     mSpriteBatch(NULL),
     mGrid(NULL)
-{
-}
+{}
 
 tDimension2f GameRoot::getViewportSize()
 {
