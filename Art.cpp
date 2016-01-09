@@ -15,7 +15,7 @@ Art::Art()
     #if EMSCRIPTEN
         const std::string resourcesPath = "";
     #else
-        const std::string resourcesPath = "/home/raulroa/Code/projects/Geometry/Resources/Sprites/";
+        const std::string resourcesPath = "./Resources/Sprites/";
     #endif
     mPlayer         = new tTexture(tSurface(std::string(resourcesPath + "player.png")));
     mSeeker         = new tTexture(tSurface(std::string(resourcesPath + "seeker.png")));

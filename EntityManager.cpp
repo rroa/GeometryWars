@@ -170,7 +170,6 @@ void EntityManager::update()
 
     mAddedEntities.clear();
 
-    std::cout << "Bullet count: " << mBullets.size() << std::endl;
 }
 
 void EntityManager::handleCollisions()

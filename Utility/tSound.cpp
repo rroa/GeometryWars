@@ -113,7 +113,6 @@ bool   tSound::play(float startTimeMS, uint32_t nloops)
 
         m_channelId = Mix_PlayChannel(-1, m_chunk, 0);
         mIsPlaying = (m_channelId != -1 );
-        std::cout << m_channelId << std::endl;
         return mIsPlaying;
     }
 
