@@ -21,9 +21,9 @@ namespace
         char* res = ( char* ) malloc( res_size );
         int nb_read_total = 0;
 
-        while ( !feof( in ) && !ferror( in )) 
+        while ( !feof( in ) && !ferror( in ))
         {
-            if( nb_read_total + BUFSIZ > res_size ) 
+            if( nb_read_total + BUFSIZ > res_size )
             {
                 if( res_size > 10 * 1024 * 1024 ) break;
                 res_size = res_size * 2;
@@ -32,7 +32,7 @@ namespace
             char* p_res = res + nb_read_total;
             nb_read_total += fread( p_res, 1, BUFSIZ, in );
         }
-      
+
         fclose( in );
         res = ( char* ) realloc( res, nb_read_total + 1 );
         res[ nb_read_total ] = '\0';
@@ -43,7 +43,7 @@ namespace
      * Check if a file exists
      * @return true if and only if the file exists, false else
      */
-    bool file_exists(const char* file) 
+    bool file_exists(const char* file)
     {
         struct stat buf;
         return (stat(file, &buf) == 0);
@@ -87,11 +87,11 @@ tSpriteBatch::tSpriteBatch()
     #if EMSCRIPTEN
         const std::string resourcePath = "";
     #else
-        const std::string resourcePath = "/home/raulroa/Code/projects/Geometry/Resources/Shaders/";
+        const std::string resourcePath = "./Resources/Shaders/";
     #endif
     std::string vertPath = resourcePath + std::string("spritebatch.vert");
     std::string fragPath = resourcePath + std::string("spritebatch.frag");
-    
+
     if( file_exists( vertPath.c_str( )) &&
         file_exists( vertPath.c_str( )))
     {
