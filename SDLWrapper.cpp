@@ -31,14 +31,14 @@ namespace Geometry
     }
 
     SDLWrapper::~SDLWrapper( )
-    {        
+    {
         OnCleanup( );
     }
 
     bool SDLWrapper::OnInit( )
     {
-        if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 ) 
-        {            
+        if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
+        {
             return false;
         }
 
@@ -52,7 +52,7 @@ namespace Geometry
         SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE,          8 );
         SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE,           8 );
         SDL_GL_SetAttribute( SDL_GL_ALPHA_SIZE,          8 );
-        
+
         SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE,          16 );
         SDL_GL_SetAttribute( SDL_GL_BUFFER_SIZE,         32 );
 
@@ -65,7 +65,7 @@ namespace Geometry
          * There's something about multi-sampling that my VM doesn't like
          * SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS,  1 );
          * SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES,  2 );
-         */ 
+         */
 
         // Creating the drawing canvas and GL context at the same time
         // got to admit even though is a simple function call to the API
@@ -79,8 +79,8 @@ namespace Geometry
             SDL_OPENGL - Create an OpenGL rendering context.
         */
 
-        if(( m_mainwindow = SDL_SetVideoMode( m_width, m_height, 32, 
-            SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL) 
+        if(( m_mainwindow = SDL_SetVideoMode( m_width, m_height, 32,
+            SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL)
         {
             #if !EMSCRIPTEN
                 std::cerr << "Unable to set video mode: " << SDL_GetError() << std::endl;
@@ -114,6 +114,8 @@ namespace Geometry
         //
         SDL_FreeSurface( m_mainwindow );
         SDL_Quit( );
+        delete m_timer;
+        m_timer = NULL;
     }
 
     void SDLWrapper::OnResize( int width, int height )
@@ -128,7 +130,7 @@ namespace Geometry
     }
 
     void SDLWrapper::OnExecute( )
-    {        
+    {
         // Frame starts
         //
         double startTime = m_timer->GetElapsedTime( );
@@ -145,7 +147,7 @@ namespace Geometry
         //
         OnRender( );
 
-        
+
         // Time Management
         //
         double endTime = m_timer->GetElapsedTime( );
@@ -172,19 +174,19 @@ namespace Geometry
         {
             // Clean exit if window is closed
             //
-            if( event.type == SDL_QUIT ) 
+            if( event.type == SDL_QUIT )
             {
                 OnExit( );
             }
 
             switch( event.type )
             {
-                case SDL_KEYDOWN:            
+                case SDL_KEYDOWN:
                     OnKeyDown( event.key );
-                    break;            
+                    break;
 
                 case SDL_KEYUP:
-                    OnKeyUp( event.key );                
+                    OnKeyUp( event.key );
                     break;
 
                 case SDL_MOUSEMOTION:
@@ -224,7 +226,7 @@ namespace Geometry
 
     void SDLWrapper::HandleMouseButtonDownEvents( SDL_Event* event )
     {
-        switch( event->button.button ) 
+        switch( event->button.button )
         {
             case SDL_BUTTON_LEFT:
                 OnLButtonDown( event->button.x, event->button.y );
@@ -233,10 +235,10 @@ namespace Geometry
             case SDL_BUTTON_RIGHT:
                 OnRButtonDown( event->button.x, event->button.y );
                 break;
-            
+
             case SDL_BUTTON_MIDDLE:
                 OnMButtonDown( event->button.x, event->button.y );
-                break;            
+                break;
         }
     }
 
@@ -247,14 +249,14 @@ namespace Geometry
             case SDL_BUTTON_LEFT:
                 OnLButtonUp( event->button.x, event->button.y );
                 break;
-            
+
             case SDL_BUTTON_RIGHT:
                 OnRButtonUp(event->button.x, event->button.y);
                 break;
-            
+
             case SDL_BUTTON_MIDDLE:
                 OnMButtonUp(event->button.x, event->button.y);
-                break;            
+                break;
         }
     }
 
@@ -336,7 +338,7 @@ namespace Geometry
     void SDLWrapper::OnKeyUp( SDL_KeyboardEvent keyBoardEvent )
     {
         if( keyBoardEvent.keysym.sym == SDLK_ESCAPE )
-        {            
+        {
             OnExit( );
         }
 
@@ -349,6 +351,6 @@ namespace Geometry
 
         // Bringing the back buffer to the front
         //
-        SDL_GL_SwapBuffers();   
+        SDL_GL_SwapBuffers();
     }
 }

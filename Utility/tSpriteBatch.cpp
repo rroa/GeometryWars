@@ -75,6 +75,14 @@ void tSpriteBatch::SixIndices(std::vector<uint16_t>& v, uint16_t start)
     v.push_back(start + 2);
 }
 
+
+
+tSpriteBatch::~tSpriteBatch()
+{
+    delete mDefaultProgram;
+    mDefaultProgram = NULL;
+}
+
 tSpriteBatch::tSpriteBatch()
 :   mProjection(tMatrix4x4f::ortho(0, 2, 2, 0)),
     mDefaultProgram(NULL)

@@ -31,7 +31,7 @@ protected:
 
 public:
     tSpriteBatch();
-    virtual ~tSpriteBatch() { }
+    virtual ~tSpriteBatch();
 
     void setProjection(const tMatrix4x4f& newOrtho);
 
