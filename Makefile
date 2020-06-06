@@ -1,7 +1,7 @@
-CC=clang++
+CC=g++
 CFLAGS=-c -Wall
-LDFLAGS=-lGL -lGLEW -lSDL
-SOURCES=$(wildcard *.c *.cpp)
+LDFLAGS=-lGL -lGLEW -lSDL -lSDL_mixer
+SOURCES=$(wildcard *.c *.cpp Utility/*.cpp)
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=Geometry
 
