@@ -4,7 +4,7 @@
 // Written by Terence J. Grant - tjgrant [at] tatewake [dot] com
 // Find the full tutorial at: http://gamedev.tutsplus.com/series/
 //----------------------------------------------------------------------------------
-#include <SDL_mixer.h>
+#include <SDL/SDL_mixer.h>
 #include <list>
 
 class tSound
