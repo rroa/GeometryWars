@@ -1,4 +1,4 @@
-CC=g++
+CC=clang++
 CFLAGS=-c -Wall
 LDFLAGS=-lGL -lGLEW -lSDL -lSDL_mixer
 SOURCES=$(wildcard *.c *.cpp Utility/*.cpp)
